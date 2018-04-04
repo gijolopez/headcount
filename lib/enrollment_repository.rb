@@ -3,20 +3,51 @@ require_relative 'enrollment'
 require_relative 'parser'
 
 class EnrollmentRepository
+  include Parser
 
   attr_reader :enrollments
 
   def load_data(data)
-    data_set = data[:enrollment][:kindergarten]
-    process_district_data(data_set)
+    @kindergarten_data_set = data[:enrollment][:kindergarten]
+    @enrollments = collect_enrollments
+    uniqueize_enrollments
+    add_kindergarten_data_to_enrollments
+    enrollments
   end
 
-  def process_district_data(data_set)
-    contents = CSV.open(data_set, {headers: true, header_converters: :symbol})
-    @enrollments = contents.collect do |row|
+  def collect_enrollments
+    kindergarten_contents = CSV.open(@kindergarten_data_set,
+      {headers: true, header_converters: :symbol})
+    kindergarten_contents.collect do |row|
       parse_name(row)
-      Enrollment.new(row)
+      Enrollment.new({:name => row[:name]})
     end
-     enrollments.uniq! {|enroll| enroll.name}
+  end
+
+  def uniqueize_enrollments
+    enrollments.uniq! do |enrollment|
+      enrollment.name
+    end
+  end
+
+  def add_kindergarten_data_to_enrollments
+    kindergarten_contents = CSV.open(@kindergarten_data_set,
+      {headers: true, header_converters: :symbol})
+    kindergarten_contents.each do |row|
+      parse_name(row)
+      parse_timeframe(row)
+      parse_data(row)
+      enrollments[index_finder(row)].kindergarten_participation[
+        row[:timeframe]] = row[:data]
+    end
+    enrollments
+  end
+
+  def index_finder(row)
+    @enrollments.find_index {|enrollment|enrollment.name == row[:name]}
+  end
+
+  def find_by_name(name)
+    @enrollments.find {|enrollment| enrollment.name == name}
   end
 end
