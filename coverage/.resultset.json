@@ -1,0 +1,51 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/georgeanthony/turing/1module/project/headcount/headcount/lib/enrollment_repository.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/Users/georgeanthony/turing/1module/project/headcount/headcount/lib/enrollment.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/Users/georgeanthony/turing/1module/project/headcount/headcount/lib/parser.rb": [
+        1,
+        null,
+        1,
+        0,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1522865725
+  }
+}

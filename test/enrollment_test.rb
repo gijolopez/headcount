@@ -14,3 +14,5 @@ class EnrollmentTest < Minitest::Test
       assert_in_delta v, e.kindergarten_participation_by_year[k], 0.005
     end
   end
+
+end

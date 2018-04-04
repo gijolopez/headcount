@@ -24,7 +24,7 @@ class EnrollmentRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_name
-    
+    skip
     @er.load_data(@enrollment)
 
     assert_instance_of Enrollment, @er.find_by_name('ACADEMY 20')

@@ -15,7 +15,7 @@ class EnrollmentRepository
     contents = CSV.open(data_set, {headers: true, header_converters: :symbol})
     @enrollments = contents.collect do |row|
       parse_name(row)
-      Emrollment.new(row)
+      Enrollment.new(row)
     end
      enrollments.uniq! {|enroll| enroll.name}
   end
