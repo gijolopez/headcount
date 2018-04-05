@@ -13,7 +13,6 @@ class EnrollmentRepository
     uniqueize_enrollments
     add_kindergarten_data_to_enrollments
     enrollments
-    binding.pry
   end
 
   def collect_enrollments
