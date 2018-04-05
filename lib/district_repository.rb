@@ -14,7 +14,8 @@ class DistrictRepository
   end
 
   def process_district_data(data_set)
-    contents = CSV.open(data_set, {headers: true, header_converters: :symbol})
+    contents = CSV.open(data_set,
+      {headers: true, header_converters: :symbol})
     @districts = contents.collect do |row|
       parse_name(row)
       District.new(row)
@@ -30,5 +31,4 @@ class DistrictRepository
     index = name.length - 1
     @districts.find_all {|district| district.name[0..index] == name[0..index]}
   end
-
 end
