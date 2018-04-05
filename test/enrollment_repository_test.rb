@@ -8,10 +8,10 @@ class EnrollmentRepositoryTest < Minitest::Test
     @er = EnrollmentRepository.new
     @enrollment = {:enrollment =>
                    {:kindergarten =>
-                     './fixtures/kindergarten_full_day.csv'
+                     './data/Kindergartners in full-day program.csv'
                    }}
   end
-# './data/Kindergartners in full-day program.csv'
+
   def test_it_initializes
     assert_instance_of EnrollmentRepository, @er
   end
