@@ -7,9 +7,9 @@ class DistrictRepositoryTest < Minitest::Test
   def setup
     @dr = DistrictRepository.new
     @kinder_data = { :enrollment =>
-                   { :kindergarten =>
-                    './data/Kindergartners in full-day program.csv'
-                    }}
+                        { :kindergarten =>
+                            './data/Kindergartners in full-day program.csv'}
+                    }
   end
 
   def test_it_initializes
@@ -42,5 +42,12 @@ class DistrictRepositoryTest < Minitest::Test
     district = @dr.find_by_name("ACADEMY 20")
 
     assert_instance_of Enrollment, district.enrollment
+  end
+
+  def test_it_can_create_enrollment_from_district
+    @dr.load_data(@kinder_data)
+    district = @dr.find_by_name("GUNNISON WATERSHED RE1J")
+
+    assert_equal 0.144, district.enrollment.kindergarten_participation_in_year(2004)
   end
 end
