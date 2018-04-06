@@ -11,6 +11,9 @@ class DistrictRepository
   def load_data(data)
     data_set = data[:enrollment][:kindergarten]
     process_district_data(data_set)
+    if data[:enrollment]
+      load_enrollments(data)
+    end
   end
 
   def process_district_data(data_set)
@@ -21,6 +24,18 @@ class DistrictRepository
       District.new(row)
     end
      districts.uniq! {|district| district.name}
+  end
+
+  def load_enrollments(data)
+    er = EnrollmentRepository.new
+    @enrollments = er.load_data(data)
+    add_enrollment_to_district
+  end
+
+  def add_enrollment_to_district
+    @districts.each_with_index do |district, index|
+      district.enrollment = @enrollments[index]
+    end
   end
 
   def find_by_name(name)
