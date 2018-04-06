@@ -6,10 +6,10 @@ class EnrollmentRepositoryTest < Minitest::Test
 
   def setup
     @er = EnrollmentRepository.new
-    @enrollment = {:enrollment =>
+    @enrollment = ({:enrollment =>
                    {:kindergarten =>
-                     './data/Kindergartners in full-day program.csv'
-                   }}
+                     './data/Kindergartners in full-day program.csv'}
+                    })
   end
 
   def test_it_initializes

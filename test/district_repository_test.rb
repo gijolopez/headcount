@@ -6,10 +6,10 @@ class DistrictRepositoryTest < Minitest::Test
 
   def setup
     @dr = DistrictRepository.new
-    @kinder_data = { :enrollment =>
+    @kinder_data = ({ :enrollment =>
                         { :kindergarten =>
                             './data/Kindergartners in full-day program.csv'}
-                    }
+                    })
   end
 
   def test_it_initializes
