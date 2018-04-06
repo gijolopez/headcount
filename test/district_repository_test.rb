@@ -36,4 +36,11 @@ class DistrictRepositoryTest < Minitest::Test
     assert_equal 1, @dr.find_all_matching('ACADEMY 20').count
     assert_equal 7, @dr.find_all_matching('WE').count
   end
+
+  def test_it_instantiates_enrollment
+    @dr.load_data(@kinder_data)
+    district = @dr.find_by_name("ACADEMY 20")
+
+    assert_instance_of Enrollment, district.enrollment
+  end
 end
