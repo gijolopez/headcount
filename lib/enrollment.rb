@@ -20,4 +20,8 @@ class Enrollment
   def kindergarten_participation_in_year(year)
     kindergarten_participation_by_year[year]
   end
+
+  def graduation_rate_by_year
+
+  end
 end
