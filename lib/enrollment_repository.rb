@@ -9,9 +9,11 @@ class EnrollmentRepository
 
   def load_data(data)
     @kindergarten_data_set = data[:enrollment][:kindergarten]
+    @high_school_data_set = data[:enrollment][:high_school_graduation]
     @enrollments = collect_enrollments
     uniqueize_enrollments
     add_kindergarten_data_to_enrollments
+    add_high_school_data_to_enrollments if @high_school_data_set
     enrollments
   end
 
@@ -37,8 +39,21 @@ class EnrollmentRepository
       parse_name(row)
       parse_timeframe(row)
       parse_data(row)
-      enrollments[index_finder(row)].kindergarten_participation[
-        row[:timeframe]] = row[:data]
+      enrollments[index_finder(row)].kindergarten_participation
+      [row[:timeframe]] = row[:data]
+    end
+    enrollments
+  end
+
+  def add_high_school_data_to_enrollments
+    high_school_contents = CSV.open(@high_school_data_set,
+      {headers: true, header_converters: :symbol})
+    high_school_contents.each do |row|
+      parse_name(row)
+      parse_timeframe(row)
+      parse_data(row)
+      enrollments[index_finder(row)].high_school_graduation_rates
+       [row[:timeframe]] = row[:data]
     end
     enrollments
   end
