@@ -4,11 +4,13 @@ class Enrollment
   include Parser
 
   attr_reader :name
-  attr_accessor :kindergarten_participation
+  attr_accessor :kindergarten_participation,
+                :high_school_graduation_rates
 
   def initialize(data)
     @name = data[:name]
     @kindergarten_participation = data[:kindergarten_participation] || Hash.new
+    @high_school_graduation_rates = data[:high_school_graduation] || Hash.new
   end
 
   def kindergarten_participation_by_year
@@ -22,6 +24,8 @@ class Enrollment
   end
 
   def graduation_rate_by_year
-
+    @high_school_graduation_rates.reduce({}) do |key, value|
+     key.merge(value.first => value.last)
+   end
   end
 end

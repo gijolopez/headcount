@@ -49,11 +49,11 @@ class EnrollmentTest < Minitest::Test
                    }})
     e = er.find_by_name("MONTROSE COUNTY RE-1J")
 
-
     expected = {2010=>0.738, 2011=>0.751, 2012=>0.777, 2013=>0.713, 2014=>0.757}
-    expected.each do |k,v|
-    assert_in_delta v, e.graduation_rate_by_year[k], 0.005
+    actual = e.graduation_rate_by_year
+
+    assert_equal expected, actual
     end
-    assert_in_delta 0.738, e.graduation_rate_in_year(2010), 0.005
-  end
+  #   assert_in_delta 0.738, e.graduation_rate_in_year(2010), 0.005
+  # end
 end
