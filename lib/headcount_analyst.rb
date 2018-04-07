@@ -2,6 +2,7 @@ require_relative '../lib/district_repository'
 require 'pry'
 
 class HeadcountAnalyst
+  include Parser
 
   attr_reader :dr
 
@@ -11,19 +12,19 @@ class HeadcountAnalyst
 
   def average_kindergarten_participation_per_district(name)
     district = @dr.find_by_name(name)
+
     total = district.enrollment.kindergarten_participation_by_year
-                               .reduce(0) {|sum, percent| sum + percent[1]}
+                      .reduce(0) {|sum, percent| sum + percent[1]}
+
     average = total / district.enrollment.kindergarten_participation_by_year.length
-    (average.to_f*1000).floor/1000.0
+    
+    convert_to_three_decimals(average)
   end
 
   def kindergarten_participation_rate_variation(name,data)
-    dist1 = average_kindergarten_participation_per_district(name)
-
-    dist2 = average_kindergarten_participation_per_district(data[:against])
-
-    variation_rate = dist1 / dist2
-
-    (variation_rate.to_f*1000).floor/1000.0
+    district_1 = average_kindergarten_participation_per_district(name)
+    district_2 = average_kindergarten_participation_per_district(data[:against])
+    variation_rate = district_1 / district_2
+    convert_to_three_decimals(variation_rate)
   end
 end
