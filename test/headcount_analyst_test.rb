@@ -28,8 +28,7 @@ class HeadcountAnalystTest < Minitest::Test
   #   assert_equal 0.406, average
   # end
 
-  def test_enrollment_analysis_basics
-
+  def test_kindergarten_participation_rate_variation
     assert_equal 1.126, @ha.kindergarten_participation_rate_variation("GUNNISON WATERSHED RE1J", :against => "TELLURIDE R-1")
     assert_equal 0.446, @ha.kindergarten_participation_rate_variation('ACADEMY 20', :against => 'YUMA SCHOOL DISTRICT 1')
   end
