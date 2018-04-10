@@ -1,5 +1,4 @@
 require_relative '../lib/district_repository'
-require 'pry'
 
 class HeadcountAnalyst
   include Parser
@@ -39,5 +38,9 @@ class HeadcountAnalyst
     variation_trend = oldval / newval
     convert_to_three_decimals(variation_trend)
    end
+  end
+
+  def kindergarten_participation_against_high_school_graduation(name)
+
   end
 end
