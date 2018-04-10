@@ -49,6 +49,5 @@ class DistrictRepositoryTest < Minitest::Test
     district = @dr.find_by_name("GUNNISON WATERSHED RE1J")
 
     assert_equal 0.144, district.enrollment.kindergarten_participation_in_year(2004)
-    binding.pry
   end
 end
