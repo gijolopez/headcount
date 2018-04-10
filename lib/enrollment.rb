@@ -3,7 +3,7 @@ require_relative 'parser'
 class Enrollment
   include Parser
 
-  attr_reader :name
+  attr_reader   :name
   attr_accessor :kindergarten_participation,
                 :high_school_graduation_rates
 
