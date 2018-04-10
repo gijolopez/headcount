@@ -15,6 +15,7 @@ class EnrollmentRepository
     add_kindergarten_data_to_enrollments
     add_high_school_data_to_enrollments if @high_school_data_set
     enrollments
+    binding.pry
   end
 
   def collect_enrollments
@@ -39,8 +40,7 @@ class EnrollmentRepository
       parse_name(row)
       parse_timeframe(row)
       parse_data(row)
-      enrollments[index_finder(row)].kindergarten_participation
-      [row[:timeframe]] = row[:data]
+      enrollments[index_finder(row)].kindergarten_participation[row[:timeframe]] = row[:data]
     end
     enrollments
   end
@@ -52,8 +52,7 @@ class EnrollmentRepository
       parse_name(row)
       parse_timeframe(row)
       parse_data(row)
-      enrollments[index_finder(row)].high_school_graduation_rates
-       [row[:timeframe]] = row[:data]
+      enrollments[index_finder(row)].high_school_graduation_rates[row[:timeframe]] = row[:data]
     end
     enrollments
   end
