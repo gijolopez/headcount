@@ -5,10 +5,10 @@ class HeadcountAnalystTest < Minitest::Test
 
   def setup
     @dr = DistrictRepository.new
-    data = ({:enrollment =>
-                        {:kindergarten =>
-                          "./data/Kindergartners in full-day program.csv"}
-                        })
+    data = ({:enrollment => {
+                :kindergarten => './data/Kindergartners in full-day program.csv',
+                    :high_school_graduation => './data/High school graduation rates.csv'}
+                  })
     @dr.load_data(data)
     @ha = HeadcountAnalyst.new(@dr)
   end
@@ -23,13 +23,11 @@ class HeadcountAnalystTest < Minitest::Test
     assert_equal 0.406, average
   end
 
-  # def test_multipal_kindergarten_participation_rate_per_district
-  #   average = @ha.average_kindergarten_participation_per_district("ARCHULETA")
-  #   assert_equal 0.406, average
-  # end
-
-  def test_kindergarten_participation_rate_variation
+  def test_kindergarten_participation_rate_variation_compared_to_statewide_avg
     assert_equal 0.766, @ha.kindergarten_participation_rate_variation('ACADEMY 20', :against => 'COLORADO')
+  end
+
+  def test_kindergarten_participation_rate_variation_against_another_district
     assert_equal 1.126, @ha.kindergarten_participation_rate_variation("GUNNISON WATERSHED RE1J", :against => "TELLURIDE R-1")
     assert_equal 0.446, @ha.kindergarten_participation_rate_variation('ACADEMY 20', :against => 'YUMA SCHOOL DISTRICT 1')
   end
@@ -41,5 +39,15 @@ class HeadcountAnalystTest < Minitest::Test
                 2012 => 0.687, 2013 => 0.693, 2014 => 0.661 }
 
     assert_equal expected, actual
+  end
+
+  def test_high_school_versus_kindergarten_analysis
+    dr = DistrictRepository.new
+    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
+                                  :high_school_graduation => "./data/High school graduation rates.csv"}})
+    ha = HeadcountAnalyst.new(dr)
+
+    assert_in_delta 0.548, ha.kindergarten_participation_against_high_school_graduation('MONTROSE COUNTY RE-1J'), 0.005
+    assert_in_delta 0.800, ha.kindergarten_participation_against_high_school_graduation('STEAMBOAT SPRINGS RE-2'), 0.005
   end
 end
