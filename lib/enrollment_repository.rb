@@ -15,7 +15,6 @@ class EnrollmentRepository
     add_kindergarten_data_to_enrollments
     add_high_school_data_to_enrollments if @high_school_data_set
     enrollments
-    binding.pry
   end
 
   def collect_enrollments
