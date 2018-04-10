@@ -28,4 +28,8 @@ class Enrollment
      key.merge(value.first => convert_to_three_decimals(value.last))
    end
   end
+
+  def graduation_rate_in_year(year)
+    graduation_rate_by_year[year]
+  end
 end
