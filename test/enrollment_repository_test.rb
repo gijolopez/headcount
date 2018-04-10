@@ -6,7 +6,7 @@ class EnrollmentRepositoryTest < Minitest::Test
 
   def setup
     @er = EnrollmentRepository.new
-    @enrollment_data = ({:enrollment =>{
+    @enrollment_data = ({:enrollment => {
                             :kindergarten => './data/Kindergartners in full-day program.csv',
                                 :high_school_graduation => './data/High school graduation rates.csv'}
                           })
@@ -27,6 +27,12 @@ class EnrollmentRepositoryTest < Minitest::Test
 
     assert_instance_of Enrollment, @er.find_by_name('ACADEMY 20')
     assert_equal 'ACADEMY 20', @er.find_by_name('ACADEMY 20').name
+  end
+
+  def test_it_gets_nil_if_district_unknown
+    @er.load_data(@enrollment_data)
+
+    assert_nil @er.find_by_name("TEXAS 512")
   end
 
   def test_it_loads_enrollment
@@ -50,7 +56,7 @@ class EnrollmentRepositoryTest < Minitest::Test
 
     assert_equal district, enrollment.name
     assert_equal 0.971, enrollment.kindergarten_participation_in_year(2014)
-    
+
     assert_equal expected, enrollment.graduation_rate_by_year
     assert_equal 0.455, enrollment.graduation_rate_in_year(2010)
   end
