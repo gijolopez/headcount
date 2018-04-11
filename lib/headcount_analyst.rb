@@ -64,4 +64,8 @@ class HeadcountAnalyst
     variation_rate = district_1 / district_2
     convert_to_three_decimals(variation_rate)
   end
+
+  def correlation?(kindergarten_participation_against_high_school_graduation)
+    kindergarten_participation_against_high_school_graduation > 0.6 && kindergarten_participation_against_high_school_graduation < 1.5 ? true : false
+  end
 end
