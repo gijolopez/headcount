@@ -56,6 +56,13 @@ class HeadcountAnalystTest < Minitest::Test
     assert_equal 0.800, @ha.kindergarten_participation_against_high_school_graduation('STEAMBOAT SPRINGS RE-2')
   end
 
+  def test_correlation_range
+    assert  @ha.correlation?(0.641)
+    refute  @ha.correlation?(0.548)
+    assert  @ha.correlation?(0.800)
+    # refute  @ha.correlation?(1.670)
+  end
+
   def test_does_kindergarten_participation_predict_hs_graduation
     skip
     dr = DistrictRepository.new
@@ -68,9 +75,9 @@ class HeadcountAnalystTest < Minitest::Test
     refute ha.kindergarten_participation_correlate articipation_correlates_with_high_school_graduation(for: 'PARK (ESTES PARK) R-3')
   end
 
-  assert_equal 1.234, @ha.kindergarten_participation_against_high_school_graduation('ACADEMY 20') # => 1.234
-  assert @ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'ACADEMY 20') # => true
-  assert @ha.kindergarten_participation_correlates_with_high_school_graduation(:for => 'STATEWIDE') # => true
-  assert @ha.kindergarten_participation_correlates_with_high_school_graduation(:across =>
-                                    ['district_1', 'district_2', 'district_3', 'district_4']) # => true
+  # assert_equal 1.234, @ha.kindergarten_participation_against_high_school_graduation('ACADEMY 20') # => 1.234
+  # assert @ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'ACADEMY 20') # => true
+  # assert @ha.kindergarten_participation_correlates_with_high_school_graduation(:for => 'STATEWIDE') # => true
+  # assert @ha.kindergarten_participation_correlates_with_high_school_graduation(:across =>
+                                    # ['district_1', 'district_2', 'district_3', 'district_4']) # => true
 end
