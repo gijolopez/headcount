@@ -59,7 +59,9 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_against_high_school_graduation(name)
-    variation_rate = kindergarten_participation_rate_variation(name, :against => 'COLORADO') / high_school_graduation_rate_variation(name, :against => 'COLORADO')
+    district_1 = kindergarten_participation_rate_variation(name, :against => 'COLORADO')
+    district_2 = high_school_graduation_rate_variation(name, :against => 'COLORADO')
+    variation_rate = district_1 / district_2
     convert_to_three_decimals(variation_rate)
   end
 end
