@@ -7,7 +7,7 @@ require_relative 'parser'
 class DistrictRepository
   include Parser
 
-  attr_reader :districts
+  attr_reader :districts, :enrollments
 
   def load_data(data)
     data_set = data[:enrollment][:kindergarten]
@@ -47,7 +47,7 @@ class DistrictRepository
       district.enrollment = @enrollments[index]
     end
   end
-  
+
   def add_statewide_tests_to_district
    @districts.each_with_index do |district, index|
      district.statewide_test = @statewide_tests[index]
