@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'district'
 require_relative 'enrollment_repository'
+require_relative 'statewide_test_repository'
 require_relative 'parser'
 
 class DistrictRepository
@@ -13,6 +14,9 @@ class DistrictRepository
     process_district_data(data_set)
     if data[:enrollment]
       load_enrollments(data)
+    end
+    if data[:statewide_testing]
+      load_testing(data)
     end
   end
 
@@ -32,11 +36,23 @@ class DistrictRepository
     add_enrollment_to_district
   end
 
+  def load_state_testing(data)
+    str = StatewideTestRepository.new
+    @statewide_tests = str.load_data(data)
+    add_statewide_tests_to_district
+  end
+
   def add_enrollment_to_district
     @districts.each_with_index do |district, index|
       district.enrollment = @enrollments[index]
     end
   end
+  
+  def add_statewide_tests_to_district
+   @districts.each_with_index do |district, index|
+     district.statewide_test = @statewide_tests[index]
+   end
+ end
 
   def find_by_name(name)
     @districts.find {|district| district.name == name}
