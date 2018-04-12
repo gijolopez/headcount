@@ -13,7 +13,9 @@ class EnrollmentRepository
     @enrollments = collect_enrollments
     uniqueize_enrollments
     add_kindergarten_data_to_enrollments
-    add_high_school_data_to_enrollments if @high_school_data_set
+    if !@high_school_data_set.nil?
+      add_high_school_data_to_enrollments
+    end
     enrollments
   end
 
