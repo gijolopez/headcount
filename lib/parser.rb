@@ -19,4 +19,12 @@ module Parser
       row[:data] = ((row[:data].to_f)*1000).floor/1000.0
     end
   end
+
+  def parse_score(row)
+    row[:score] = row[:score].downcase
+  end
+
+  def parse_race_ethnicity(row)
+    row[:race] = row[:race_ethnicity].downcase
+  end
 end
