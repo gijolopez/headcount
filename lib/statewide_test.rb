@@ -45,21 +45,21 @@ class StatewideTest
    end
  end
 
- def proficient_for_subject_by_grade_in_year(subject, grade, year)
-   if grade == 3 and SUBJECTS.include?(subject)
-     third_grade[year][subject]
-   elsif grade == 8 and SUBJECTS.include?(subject)
-     eighth_grade[year][subject]
-   else
-     raise UnknownDataError
-   end
- end
+  def proficient_for_subject_by_grade_in_year(subject, grade, year)
+    if grade == 3 and SUBJECTS.include?(subject)
+      third_grade[year][subject]
+    elsif grade == 8 and SUBJECTS.include?(subject)
+      eighth_grade[year][subject]
+    else
+      raise UnknownDataError
+    end
+  end
 
- def proficient_for_subject_by_race_in_year(subject, race, year)
-   if RACES.include?(race) and SUBJECTS.include?(subject)
-     race_data[race][year][subject]
-   else
-     raise UnknownDataError
-   end
- end
+  def proficient_for_subject_by_race_in_year(subject, race, year)
+    if RACES.include?(race) and SUBJECTS.include?(subject)
+      race_data[race][year][subject]
+    else
+      raise UnknownDataError
+    end
+  end
 end
