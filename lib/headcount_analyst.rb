@@ -11,12 +11,9 @@ class HeadcountAnalyst
 
   def average_kindergarten_participation_per_district(name)
     district = @dr.find_by_name(name)
-
     total = district.enrollment.kindergarten_participation_by_year
                       .reduce(0) {|sum, percent| sum + percent[1]}
-
     average = total / district.enrollment.kindergarten_participation_by_year.length
-
     convert_to_three_decimals(average)
   end
 
@@ -42,12 +39,9 @@ class HeadcountAnalyst
 
   def average_high_school_graduation_per_district(name)
     district = @dr.find_by_name(name)
-
     total = district.enrollment.graduation_rate_by_year
                       .reduce(0) {|sum, percent| sum + percent[1]}
-
     average = total / district.enrollment.graduation_rate_by_year.length
-
     convert_to_three_decimals(average)
   end
 
