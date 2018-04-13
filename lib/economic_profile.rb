@@ -8,12 +8,8 @@ class EconomicProfile
   def initialize(data)
     @name = data[:name]
     @median_household_income = data[:median_household_income] || Hash.new
-
     @children_in_poverty = data[:children_in_poverty] || Hash.new
-
-    @free_or_reduced_price_lunch =
-      data[:free_or_reduced_price_lunch] || Hash.new
-
+    @free_or_reduced_price_lunch = data[:free_or_reduced_price_lunch] || Hash.new
     @title_i = data[:title_i] || Hash.new
   end
 
@@ -37,7 +33,6 @@ class EconomicProfile
   def children_in_poverty_in_year(year)
     if @children_in_poverty[year].nil?
       raise UnknownDataError
-
     else
       @children_in_poverty[year]
     end
@@ -46,7 +41,6 @@ class EconomicProfile
   def free_or_reduced_price_lunch_percentage_in_year(year)
     if @free_or_reduced_price_lunch[year].nil?
       raise UnknownDataError
-
     else
       @free_or_reduced_price_lunch[year][:percentage]
     end
