@@ -16,7 +16,7 @@ class DistrictRepository
       load_enrollments(data)
     end
     if data[:statewide_testing]
-      load_testing(data)
+      load_state_testing(data)
     end
   end
 
