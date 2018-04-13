@@ -2,6 +2,7 @@ require 'csv'
 require_relative 'district'
 require_relative 'enrollment_repository'
 require_relative 'statewide_test_repository'
+require_relative 'economic_profile_repository'
 require_relative 'parser'
 
 class DistrictRepository
@@ -17,6 +18,9 @@ class DistrictRepository
     end
     if data[:statewide_testing]
       load_state_testing(data)
+    end
+    if data[:economic_profile]
+      load_profiles(data)
     end
   end
 
@@ -42,6 +46,12 @@ class DistrictRepository
     add_statewide_tests_to_district
   end
 
+  def load_profiles(data)
+    epr = EconomicProfileRepository.new
+    @economic_profiles = epr.load_data(data)
+    add_economic_profiles_to_district
+  end
+
   def add_enrollment_to_district
     @districts.each_with_index do |district, index|
       district.enrollment = @enrollments[index]
@@ -53,6 +63,12 @@ class DistrictRepository
      district.statewide_test = @statewide_tests[index]
    end
  end
+
+ def add_economic_profiles_to_district
+    @districts.each_with_index do |district, index|
+      district.economic_profile = @economic_profiles[index]
+    end
+  end
 
   def find_by_name(name)
     @districts.find {|district| district.name == name}
