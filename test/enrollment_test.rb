@@ -14,7 +14,7 @@ class EnrollmentTest < Minitest::Test
     @er = EnrollmentRepository.new
     @high_school_data = ({ :enrollment => {
         			                :kindergarten => './data/Kindergartners in full-day program.csv',
-        				                  :high_school_graduation => './data/High school graduation rates.csv'}
+        				               :high_school_graduation => './data/High school graduation rates.csv'}
                                   })
   end
 
@@ -48,7 +48,6 @@ class EnrollmentTest < Minitest::Test
 
   def test_graduation_rate_by_year
     @er.load_data(@high_school_data)
-
     enrollment = @er.find_by_name("ACADEMY 20")
 
     expected = {2010 => 0.895, 2011 => 0.895, 2012 => 0.889, 2013 => 0.913, 2014 => 0.898}
@@ -59,7 +58,6 @@ class EnrollmentTest < Minitest::Test
 
   def test_graduation_rate_in_year
     @er.load_data(@high_school_data)
-
     enrollment = @er.find_by_name("ACADEMY 20")
 
     assert_equal 0.898, enrollment.graduation_rate_in_year(2014)

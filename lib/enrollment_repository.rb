@@ -29,9 +29,7 @@ class EnrollmentRepository
   end
 
   def uniqueize_enrollments
-    enrollments.uniq! do |enrollment|
-      enrollment.name
-    end
+    enrollments.uniq! {|enrollment| enrollment.name}
   end
 
   def add_kindergarten_data_to_enrollments
