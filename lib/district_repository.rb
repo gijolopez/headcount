@@ -59,12 +59,12 @@ class DistrictRepository
   end
 
   def add_statewide_tests_to_district
-   @districts.each_with_index do |district, index|
-     district.statewide_test = @statewide_tests[index]
-   end
- end
+    @districts.each_with_index do |district, index|
+      district.statewide_test = @statewide_tests[index]
+    end
+  end
 
- def add_economic_profiles_to_district
+  def add_economic_profiles_to_district
     @districts.each_with_index do |district, index|
       district.economic_profile = @economic_profiles[index]
     end
