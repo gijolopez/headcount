@@ -8,11 +8,9 @@ class EconomicProfileRepository
   attr_reader :profiles
 
   def load_data(data)
-    @median_household_income_data =
-      data[:economic_profile][:median_household_income]
+    @median_household_income_data = data[:economic_profile][:median_household_income]
     @children_in_poverty_data = data[:economic_profile][:children_in_poverty]
-    @free_or_reduced_price_lunch_data =
-      data[:economic_profile][:free_or_reduced_price_lunch]
+    @free_or_reduced_price_lunch_data = data[:economic_profile][:free_or_reduced_price_lunch]
     @title_i_data = data[:economic_profile][:title_i]
     @profiles = collect_economic_profiles(@title_i_data)
     add_profile_data
@@ -35,9 +33,7 @@ class EconomicProfileRepository
   end
 
   def uniqueize_economic_profiles
-    profiles.uniq! do |profile|
-      profile.name
-    end
+    profiles.uniq!{|profile|profile.name}
   end
 
   def add_median_household_income_to_profiles
@@ -63,8 +59,7 @@ class EconomicProfileRepository
       parse_timeframe(row)
       next if row[:dataformat] == 'Number'
       parse_data(row)
-      profiles[index_finder(row)].children_in_poverty[row[:timeframe]] =
-        row[:data]
+      profiles[index_finder(row)].children_in_poverty[row[:timeframe]] = row[:data]
     end
     profiles
   end
@@ -73,29 +68,23 @@ class EconomicProfileRepository
     free_or_reduced_price_lunch_contents =
       CSV.open(@free_or_reduced_price_lunch_data,
         {headers: true, header_converters: :symbol})
-    free_or_reduced_price_lunch_contents.each do |row|
-      parse_name(row)
-      parse_timeframe(row)
+        free_or_reduced_price_lunch_contents.each do |row|
+          parse_name(row)
+          parse_timeframe(row)
       if row[:poverty_level] == 'Eligible for Free or Reduced Lunch'
         if row[:dataformat] == 'Percent'
           parse_data(row)
-          if profiles[index_finder(row)].free_or_reduced_price_lunch[
-              row[:timeframe]]
-            profiles[index_finder(row)].free_or_reduced_price_lunch[row[
-              :timeframe]].merge!(percentage: row[:data])
+          if profiles[index_finder(row)].free_or_reduced_price_lunch[row[:timeframe]]
+            profiles[index_finder(row)].free_or_reduced_price_lunch[row[:timeframe]].merge!(percentage: row[:data])
           else
-            profiles[index_finder(row)].free_or_reduced_price_lunch[
-              row[:timeframe]] = {percentage: row[:data]}
-          end
-        elsif row[:dataformat] == 'Number'
-          parse_integers(row)
-          if profiles[index_finder(row)].free_or_reduced_price_lunch[
-              row[:timeframe]]
-            profiles[index_finder(row)].free_or_reduced_price_lunch[row[
-              :timeframe]].merge!(total: row[:data])
+            profiles[index_finder(row)].free_or_reduced_price_lunch[row[:timeframe]] = {percentage: row[:data]}
+            end
+          elsif row[:dataformat] == 'Number'
+            parse_integers(row)
+          if profiles[index_finder(row)].free_or_reduced_price_lunch[row[:timeframe]]
+            profiles[index_finder(row)].free_or_reduced_price_lunch[row[:timeframe]].merge!(total: row[:data])
           else
-            profiles[index_finder(row)].free_or_reduced_price_lunch[
-              row[:timeframe]] = {total: row[:data]}
+            profiles[index_finder(row)].free_or_reduced_price_lunch[row[:timeframe]] = {total: row[:data]}
           end
         end
       end
@@ -116,15 +105,11 @@ class EconomicProfileRepository
   end
 
   def find_by_name(name)
-    profiles.find do |profile|
-      profile.name == name
-    end
+    profiles.find {|profile| profile.name == name}
   end
 
   def index_finder(row)
-    profiles.find_index do |profile|
-      profile.name == row[:location].upcase
-    end
+    profiles.find_index {|profile| profile.name == row[:location].upcase}
   end
 
 end

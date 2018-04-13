@@ -30,9 +30,7 @@ module Parser
 
   def parse_year_range(row)
     row[:timeframe] = row[:timeframe].split('-')
-    row[:timeframe].map! do |integer|
-      integer.to_i
-    end
+    row[:timeframe].map! {|integer| integer.to_i}
   end
 
   def parse_integers(row)

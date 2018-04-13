@@ -6,10 +6,9 @@ class DistrictRepositoryTest < Minitest::Test
 
   def setup
     @dr = DistrictRepository.new
-    @kinder_data = ({ :enrollment =>
-                        { :kindergarten =>
-                            './data/Kindergartners in full-day program.csv',
-                                  :high_school_graduation => "./data/High school graduation rates.csv"}
+    @kinder_data = ({ :enrollment => {
+                        :kindergarten =>'./data/Kindergartners in full-day program.csv',
+                        :high_school_graduation => "./data/High school graduation rates.csv"}
                     })
   end
 
@@ -75,9 +74,8 @@ class DistrictRepositoryTest < Minitest::Test
   def test_it_can_load_economic_data
     economic_data = {
       :enrollment => {
-        :kindergarten =>
-        './data/Kindergartners in full-day program.csv'
-        },
+        :kindergarten =>'./data/Kindergartners in full-day program.csv'
+             },
       :economic_profile => {
         :median_household_income => "./data/Median household income.csv",
         :children_in_poverty => "./data/School-aged children in poverty.csv",
